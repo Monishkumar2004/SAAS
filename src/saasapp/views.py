@@ -21,3 +21,21 @@ def home_page(request, *args, **kwargs):
     }
     PageVisits.objects.create(path  = request.path)
     return render(request, "home.html", context)
+
+
+def about_page(request, *args, **kwargs):
+
+    qs = PageVisits.objects.all()
+    about_count = PageVisits.objects.filter(path = request.path)
+    try:
+        percentage = (about_count.count()*100)/qs.count()
+    except:
+        percentage = 0    
+    context = {
+        'Total_count': qs.count(),
+        'about_count': about_count.count(),
+        'percentage': percentage,
+    }
+
+    PageVisits.objects.create(path = request.path)
+    return render(request, 'about.html', context=context)
