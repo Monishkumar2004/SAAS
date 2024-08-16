@@ -16,8 +16,8 @@ def home_page(request, *args, **kwargs):
     context = {
         "title" : page_title,
         'total_visit_count' : queryset.count(),
-        'page_visit_count' : page_qs.count(),
         'percentage' : page_qs.count() * (100/queryset.count()),
+        'page_visit_count' : page_qs.count(),
     }
     PageVisits.objects.create(path  = request.path)
     return render(request, "home.html", context)
